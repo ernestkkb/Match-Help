@@ -1,14 +1,16 @@
 package com.match.demo.user;
 
-import java.util.Date;
+import javax.persistence.*;
 
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private Date createdAt;
 
     public long getId() {
         return id;
@@ -40,13 +42,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }
