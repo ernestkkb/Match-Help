@@ -1,9 +1,7 @@
 package com.match.demo.post;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,7 +13,8 @@ public class Post {
     private String photoURL;
     private String avatarURL;
     private String profileURL;
-    private Date deadline;
+    private String username;
+    private LocalDate deadline;
 
     public long getId() {
         return id;
@@ -57,11 +56,19 @@ public class Post {
         this.profileURL = profileURL;
     }
 
-    public Date getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

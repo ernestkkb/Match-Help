@@ -11,6 +11,7 @@ body {
 
 ul {
   padding: 0;
+  list-style-type: none;
 }
 
 li {
@@ -45,6 +46,7 @@ display: flex;
 margin: 10px;
 justify-content: center;
 align-items: center;
+list-style-type: none;
 }
 
 .card-list svg {
@@ -54,4 +56,13 @@ margin-right: 10px;
 .card-list a {
 font-weight: 500;
 color: inherit;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.space-around {
+  justify-content: space-around;
 }

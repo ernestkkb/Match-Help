@@ -5,7 +5,8 @@ import com.match.demo.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("api/v1")
@@ -28,19 +29,14 @@ public class Controller {
     }
 
     @PostMapping(path = "/addPost")
-    public @ResponseBody String addNewPost (@RequestParam String caption, @RequestParam String photoURL, @RequestParam String avatarURL, @RequestParam String profileURL, @RequestParam String deadline){
+    public @ResponseBody String addNewPost (@RequestParam String caption, @RequestParam String photoURL, @RequestParam String avatarURL, @RequestParam String profileURL, @RequestParam String username, @RequestParam String deadline){
         Post post = new Post();
         post.setCaption(caption);
         post.setAvatarURL(avatarURL);
         post.setProfileURL(profileURL);
         post.setPhotoURL(photoURL);
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
-
-        try{
-            post.setDeadline(formatter1.parse(deadline));
-        }catch(Exception e){
-
-        }
+        post.setUsername(username);
+        post.setDeadline(LocalDate.parse(deadline, DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 
         postRepository.save(post);
         return "Successful, post added!";
@@ -51,6 +47,7 @@ public class Controller {
         return userRepository.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/getAllPosts")
     public @ResponseBody Iterable<Post> getAllPosts() {
         // This returns a JSON or XML with the users
