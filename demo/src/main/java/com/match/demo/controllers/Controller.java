@@ -1,12 +1,18 @@
-package com.match.demo.user;
+package com.match.demo.controllers;
 
 import com.match.demo.post.Post;
 import com.match.demo.post.PostRepository;
+import com.match.demo.user.User;
+import com.match.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @RequestMapping("api/v1")
@@ -18,12 +24,19 @@ public class Controller {
     @Autowired
     private PostRepository postRepository;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @PostMapping(path = "/addUser")
-    public @ResponseBody String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email){
+    public @ResponseBody String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String username, @RequestParam String password){
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return "Successful, user added!";
     }

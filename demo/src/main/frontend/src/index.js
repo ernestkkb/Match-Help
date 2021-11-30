@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Feed from './components/Feed';
+// import Feed from './components/Feed';
+import Login from './components/Login';
 
 function App() {
   return (
-    <Feed/>
+    <Login/>
   );
 }
 
